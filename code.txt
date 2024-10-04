@@ -1,0 +1,65 @@
+open_window = tk.Tk()
+open_window.title("Open File")
+open_window.geometry("500x500")
+open_window.iconbitmap("app_icon.ico") 
+tk.Label(open_window, text="Đây là cửa sổ Open File").pack(pady=20)
+
+DOB, gender, hireDate
+import tkinter as tk
+from tkinter import ttk
+#import mysql.connector
+from db_connection import connect_db
+
+# Hàm kết nối tới MySQL và lấy dữ liệu từ bảng employee
+
+    conn=connect_db
+    cursor = conn.cursor(dictionary=True)
+    #cursor = conn.cursor()
+    cursor.execute("SELECT * FROM employee")  # Truy vấn dữ liệu từ bảng employee
+    rows = cursor.fetchall()  # Lấy tất cả các dòng từ bảng
+
+    for row in rows:
+        table.insert("", tk.END, values=row)  # Chèn mỗi dòng vào bảng Tkinter
+    
+    cursor.close()
+    conn.close()
+
+# Tạo cửa sổ chính
+root = tk.Tk()
+root.title("Xem nhân viên")
+root.geometry("600x400")
+root.iconbitmap("app_icon.ico") #tạo icon chuong trình
+# Tạo style để thay đổi kích thước chữ cho Treeview
+style = ttk.Style()
+style.configure("Treeview.Heading", font=("Arial", 13))  # Tăng kích thước chữ cho tiêu đề cột
+style.configure("Treeview", font=("Arial", 13))  # Tăng kích thước chữ cho nội dung bảng
+
+# Tạo bảng Treeview để hiển thị dữ liệu
+table = ttk.Treeview(root, columns=(1, 2, 3, 4, 5, 6), show="headings", height="10")
+table.pack(side="top", fill="x")
+
+# Đặt tiêu đề cho các cột
+table.heading(1, text="sỐ tt")
+table.heading(2, text="HỌ")
+table.heading(3, text="TÊN")
+table.heading(4, text="Ngày sinh")
+table.heading(5, text="Giới tính")
+table.heading(6, text="Ngày đi làm")
+
+
+# Đặt độ rộng cho các cột
+table.column(1, width=100)
+table.column(2, width=200)
+table.column(3, width=150)
+table.column(4, width=100)
+table.column(5, width=100)
+table.column(6, width=100)
+
+# Nút để tải dữ liệu từ MySQL
+load_button = tk.Button(root, text="Tải cở sở dữ liệu", command=get_employee_data)
+load_button.pack(pady=20)
+
+# Chạy vòng lặp giao diện
+root.mainloop() code lại 
+
+pyinstaller --onefile --windowed --icon="F:\PYTHON-APP\PYTHON-GUI\FORM1\app_icon.ico" --add-data "form_csdl.py;." --add-data "employee_management.py;." --add-data "employee_add.py;." --add-data "db_connection.py;." --add-data "find_form.py;." Frm_menu.py
